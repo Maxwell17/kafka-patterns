@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+package com.kafka.patterns.proto;
+
+option java_package = "com.kafka.patterns.proto";
+option java_multiple_files = true;
+
+import "google/protobuf/timestamp.proto";
+import "order.proto";
+
+message OutboxEvent {
+  int64 id = 1;
+  string aggregate_type = 2;
+  string aggregate_id = 3;
+  string topic = 4;
+
+  Order payload = 5;
+
+  bool published = 6;
+  google.protobuf.Timestamp created_at = 7;
+}

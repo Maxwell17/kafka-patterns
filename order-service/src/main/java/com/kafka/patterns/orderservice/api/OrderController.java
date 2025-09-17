@@ -1,6 +1,6 @@
 package com.kafka.patterns.orderservice.api;
 
-import com.kafka.patterns.common.domain.entities.Order;
+import com.kafka.patterns.common.domain.entities.OrderEntity;
 import com.kafka.patterns.orderservice.usecase.CrateOrderUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +16,7 @@ public class OrderController {
     private final CrateOrderUseCase createOrder;
 
     @PostMapping
-    public ResponseEntity<Order> create(@RequestBody CreateOrderRequest req) {
+    public ResponseEntity<OrderEntity> create(@RequestBody CreateOrderRequest req) {
         return ResponseEntity.ok(createOrder.execute(req.product(), req.quantity()));
     }
 

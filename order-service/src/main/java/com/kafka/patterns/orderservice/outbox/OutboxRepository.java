@@ -1,18 +1,17 @@
 package com.kafka.patterns.orderservice.outbox;
 
-import com.kafka.patterns.common.dto.OrderStatus;
-import com.kafka.patterns.orderservice.entity.domain.OutboxEvent;
+import com.kafka.patterns.orderservice.entity.domain.OutboxEventEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
-public interface OutboxRepository extends JpaRepository<OutboxEvent, Long> {
+public interface OutboxRepository extends JpaRepository<OutboxEventEntity, Long> {
 
-    List<OutboxEvent> findByPublishedIsFalseOrderByCreatedAt();
+    List<OutboxEventEntity> findByPublishedIsFalseOrderByCreatedAt();
 
-    default OutboxEvent updatePublishedStatus(OutboxEvent event, Boolean published) {
+    default OutboxEventEntity updatePublishedStatus(OutboxEventEntity event, Boolean published) {
         event.setPublished(published);
         return save(event);
     }

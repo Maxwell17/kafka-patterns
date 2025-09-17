@@ -28,12 +28,14 @@
         <url/>
     </scm>
     <properties>
-        <java.version>24</java.version>
-        <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <java.version>25</java.version>
+        <mapstruct.version>1.6.3</mapstruct.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>3.5.5</spring.boot.version>
+        <confluent.version>8.0.0</confluent.version>
+        <protobuf.java.version>3.25.5</protobuf.java.version>
+        <protoc.version>3.25.5</protoc.version>
     </properties>
-
     <dependencyManagement>
         <dependencies>
             <dependency>
@@ -50,5 +52,14 @@
         <module>common</module>
         <module>order-service</module>
     </modules>
+
+    <repositories>
+        <repository>
+            <id>confluent</id>
+            <name>Confluent</name>
+            <url>https://packages.confluent.io/maven/</url>
+        </repository>
+    </repositories>
+
 
 </project>

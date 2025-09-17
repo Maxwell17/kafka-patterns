@@ -1,6 +1,6 @@
 package com.kafka.patterns.orderservice.entity.domain;
 
-import com.kafka.patterns.common.domain.entities.Order;
+import com.kafka.patterns.common.domain.entities.OrderEntity;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -18,7 +18,7 @@ import java.time.OffsetDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OutboxEvent {
+public class OutboxEventEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class OutboxEvent {
 
     @Type(JsonBinaryType.class)
     @Column(columnDefinition = "jsonb", nullable = false, updatable = false)
-    private Order payload;
+    private OrderEntity payload;
 
     @Column(name = "published", nullable = false)
     private Boolean published;

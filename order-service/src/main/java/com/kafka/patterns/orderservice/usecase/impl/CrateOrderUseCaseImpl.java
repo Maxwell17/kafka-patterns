@@ -1,8 +1,8 @@
 package com.kafka.patterns.orderservice.usecase.impl;
 
-import com.kafka.patterns.common.domain.entities.Order;
+import com.kafka.patterns.common.domain.entities.OrderEntity;
 import com.kafka.patterns.common.dto.OrderStatus;
-import com.kafka.patterns.orderservice.entity.domain.OutboxEvent;
+import com.kafka.patterns.orderservice.entity.domain.OutboxEventEntity;
 import com.kafka.patterns.orderservice.outbox.OutboxRepository;
 import com.kafka.patterns.orderservice.repo.OrderRepository;
 import com.kafka.patterns.orderservice.usecase.CrateOrderUseCase;
@@ -19,15 +19,15 @@ public class CrateOrderUseCaseImpl implements CrateOrderUseCase {
     private final OutboxRepository outboxRepository;
 
     @Override
-    public Order execute(String product, int quantity) {
-        Order newOrder = Order.builder()
+    public OrderEntity execute(String product, int quantity) {
+        OrderEntity newOrder = OrderEntity.builder()
                 .product(product)
                 .quantity(quantity)
                 .status(OrderStatus.CREATED)
                 .build();
-        OutboxEvent event = OutboxEvent.builder()
+        OutboxEventEntity event = OutboxEventEntity.builder()
                 .aggregateId(newOrder.getId().toString())
-                .aggregateType(Order.class.getSimpleName())
+                .aggregateType(OrderEntity.class.getSimpleName())
                 .payload(newOrder)
                 .topic("create-order-topic")
                 .build();
