@@ -63,6 +63,18 @@
             <artifactId>spring-kafka</artifactId>
         </dependency>
         <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-protobuf-serializer</artifactId>
+            <version>${confluent.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.confluent</groupId>
+            <artifactId>kafka-schema-registry-client</artifactId>
+            <version>${confluent.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.google.protobuf</groupId>
             <artifactId>protobuf-java</artifactId>
             <version>${protobuf.java.version}</version>
@@ -171,14 +183,13 @@
                 <executions>
                     <execution>
                         <goals>
-                            <goal>compile</goal>          <!-- src/main/proto -->
-                            <goal>compile-custom</goal>   <!-- keep if you plan custom plugins, safe to leave -->
+                            <goal>compile</goal>
                         </goals>
                     </execution>
                     <execution>
                         <id>test-proto</id>
                         <goals>
-                            <goal>test-compile</goal>     <!-- src/test/proto (optional, if you add test protos) -->
+                            <goal>test-compile</goal>
                         </goals>
                     </execution>
                 </executions>
