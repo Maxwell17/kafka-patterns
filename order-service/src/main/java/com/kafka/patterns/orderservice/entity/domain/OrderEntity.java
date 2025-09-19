@@ -1,4 +1,4 @@
-package com.kafka.patterns.common.domain.entities;
+package com.kafka.patterns.orderservice.entity.domain;
 
 import com.kafka.patterns.common.dto.OrderStatus;
 import jakarta.persistence.*;

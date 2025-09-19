@@ -1,6 +1,6 @@
 package com.kafka.patterns.orderservice.entity.domain;
 
-import com.kafka.patterns.common.domain.entities.OrderEntity;
+import com.kafka.patterns.proto.OutboxOrderEvent;
 import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -35,7 +35,7 @@ public class OutboxEventEntity {
 
     @Type(JsonBinaryType.class)
     @Column(columnDefinition = "jsonb", nullable = false, updatable = false)
-    private OrderEntity payload;
+    private OutboxOrderEvent payload;
 
     @Column(name = "published", nullable = false)
     private Boolean published;
