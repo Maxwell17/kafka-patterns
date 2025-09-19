@@ -1,6 +1,6 @@
 package com.kafka.patterns.orderservice.repo;
 
-import com.kafka.patterns.common.domain.entities.OrderEntity;
+import com.kafka.patterns.orderservice.entity.domain.OrderEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

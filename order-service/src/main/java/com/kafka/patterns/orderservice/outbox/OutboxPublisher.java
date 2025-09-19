@@ -1,7 +1,7 @@
 package com.kafka.patterns.orderservice.outbox;
 
-import com.kafka.patterns.common.domain.entities.OrderEntity;
 import com.kafka.patterns.orderservice.entity.domain.OutboxEventEntity;
+import com.kafka.patterns.proto.OutboxOrderEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -16,7 +16,7 @@ import java.util.List;
 public class OutboxPublisher {
 
     private final OutboxRepository outboxRepository;
-    private final KafkaTemplate<String, OrderEntity> kafkaTemplate;
+    private final KafkaTemplate<String, OutboxOrderEvent> kafkaTemplate;
 
     @Scheduled(fixedDelay = 1000)
     public void publish() {

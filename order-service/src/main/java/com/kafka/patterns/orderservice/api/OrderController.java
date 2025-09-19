@@ -1,6 +1,6 @@
 package com.kafka.patterns.orderservice.api;
 
-import com.kafka.patterns.common.domain.entities.OrderEntity;
+import com.kafka.patterns.orderservice.entity.domain.OrderEntity;
 import com.kafka.patterns.orderservice.usecase.CrateOrderUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
