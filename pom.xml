@@ -31,23 +31,11 @@
         <java.version>24</java.version>
         <mapstruct.version>1.6.3</mapstruct.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <spring.boot.version>3.5.5</spring.boot.version>
+        <spring.boot.version>3.5.6</spring.boot.version>
         <confluent.version>8.0.0</confluent.version>
-        <protobuf.java.version>3.25.5</protobuf.java.version>
-        <protoc.version>3.25.5</protoc.version>
+        <protobuf.java.version>4.32.1</protobuf.java.version>
+        <protoc.version>4.32.1</protoc.version>
     </properties>
-    <dependencies>
-        <dependency>
-            <groupId>org.mapstruct</groupId>
-            <artifactId>mapstruct</artifactId>
-            <version>${mapstruct.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <optional>true</optional>
-        </dependency>
-    </dependencies>
     <dependencyManagement>
         <dependencies>
             <dependency>

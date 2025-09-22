@@ -1,6 +1,6 @@
 package com.kafka.patterns.common.dto;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
-public record OrderDTO(String id, String product, int quantity, OrderStatus status, OffsetDateTime createdAt) {
+public record OrderDTO(Long id, String product, int quantity, OrderStatus status, Instant createdAt) {
 }
