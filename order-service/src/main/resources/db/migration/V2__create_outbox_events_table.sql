@@ -1,10 +1,10 @@
 CREATE TABLE outbox_events
 (
     id             BIGSERIAL PRIMARY KEY,
-    aggregate_type text        NOT NULL,
-    aggregate_id   text        NOT NULL,
-    topic          text        NOT NULL,
+    aggregate_type VARCHAR(255) NOT NULL,
+    aggregate_id   VARCHAR(255) NOT NULL,
+    topic          VARCHAR(255) NOT NULL,
     payload        JSONB       NOT NULL,
-    published      boolean     NOT NULL DEFAULT FALSE,
-    created_at     timestamptz NOT NULL DEFAULT now()
+    published      BOOLEAN      NOT NULL DEFAULT FALSE,
+    created_at     TIMESTAMP    NOT NULL
 );

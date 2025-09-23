@@ -1,10 +1,10 @@
 CREATE TABLE orders
 (
     id         BIGSERIAL PRIMARY KEY,
-    product    text        NOT NULL,
-    quantity   integer     NOT NULL,
-    status     varchar(32) NOT NULL,
-    created_at timestamptz NOT NULL DEFAULT now()
+    product    VARCHAR(255) NOT NULL,
+    quantity   INTEGER     NOT NULL,
+    status     VARCHAR(32) NOT NULL,
+    created_at TIMESTAMP    NOT NULL
 );
 
 

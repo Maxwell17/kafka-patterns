@@ -34,11 +34,10 @@ public class CrateOrderUseCaseImpl implements CrateOrderUseCase {
 
     private OutboxEventEntity createOutboxEventForOrder(OrderEntity savedOrder) {
         OutboxEventEntity event = OutboxEventEntity.builder()
-                .aggregateId(savedOrder.getId().toString())
+                .aggregateId(String.join("-", savedOrder.getProduct(), savedOrder.getQuantity().toString()))
                 .aggregateType(OrderEntity.class.getSimpleName())
                 .payload(orderMapper.toDto(savedOrder))
                 .topic("create-order-topic")
-                .published(false)
                 .build();
 
         return outboxRepository.save(event);

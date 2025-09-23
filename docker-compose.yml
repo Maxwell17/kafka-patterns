@@ -119,16 +119,44 @@ services:
     restart: unless-stopped
     volumes:
       - kafka_ui_data:/var/lib/kafkaui
-
-#  orders:
+  mysql:
+    image: mysql:innovation-oraclelinux9
+    platform: linux/amd64
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: payments_db
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: [ "CMD-SHELL", "mysqladmin ping -h localhost -u root -proot || exit 1" ]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    restart: unless-stopped
 #    build:
 #      context: ./orders-service
 #      dockerfile: Dockerfile.native
 #    depends_on: [ postgres, kafka, keycloak ]
 #    environment:
 #      SPRING_PROFILES_ACTIVE: local
-#    ports: [ "8081:8080" ]
-
+#    ports: [ "8084:8080" ]
+#  payments:
+#    build:
+#      context: ./payments-service
+#      dockerfile: Dockerfile.jvm
+#    depends_on:
+#      postgres:
+#        condition: service_healthy
+#      kafka:
+#        condition: service_healthy
+#      keycloak:
+#        condition: service_started
+#      mysql:
+#        condition: service_healthy
+#    ports: ["8085:8080"]
 volumes:
   pgdata:
   kafka_data:
@@ -136,3 +164,4 @@ volumes:
   pgadmin_data:
   schema_registry_data:
   kafka_ui_data:
+  mysql_data:

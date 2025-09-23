@@ -38,7 +38,7 @@ public class OutboxEventEntity {
     private OrderDTO payload;
 
     @Column(name = "published", nullable = false)
-    private Boolean published;
+    private boolean published = false;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

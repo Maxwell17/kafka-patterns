@@ -1,4 +1,4 @@
-package com.kafka.patterns.orderservice.entity.domain;
+package com.example.paymentservice.inbox.domain;
 
 import com.kafka.patterns.common.dto.OrderStatus;
 import jakarta.persistence.*;
@@ -6,21 +6,19 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.CreationTimestamp;
 
 import java.time.Instant;
 
 @Entity
-@Table(name = "orders")
+@Table(name = "inbox_event")
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class OrderEntity {
+public class InboxEvent {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
 
     @Column(name = "product", nullable = false)
     private String product;
@@ -32,8 +30,11 @@ public class OrderEntity {
     @Enumerated(EnumType.STRING)
     private OrderStatus status;
 
-    @CreationTimestamp
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "topic", nullable = false)
+    private String topic;
+
     @Column(name = "created_at", nullable = false, updatable = false)
+    @Temporal(TemporalType.TIMESTAMP)
     private Instant createdAt;
+
 }
