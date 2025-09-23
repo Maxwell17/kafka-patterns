@@ -8,10 +8,9 @@ option java_multiple_files = true;
 import "google/protobuf/timestamp.proto";
 
 enum OrderStatus {
-  ORDER_STATUS_UNSPECIFIED = 0;
-  CREATED = 1;
-  CANCELLED = 2;
-  COMPLETED = 3;
+  CREATED = 0;
+  CANCELLED = 1;
+  COMPLETED = 2;
 }
 
 message OutboxOrderEvent {

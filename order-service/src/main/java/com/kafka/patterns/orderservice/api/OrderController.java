@@ -20,5 +20,6 @@ public class OrderController {
         return ResponseEntity.ok(createOrder.execute(req.product(), req.quantity()));
     }
 
-    public record CreateOrderRequest(String product, int quantity) {}
+    public record CreateOrderRequest(String product, int quantity) {
+    }
 }

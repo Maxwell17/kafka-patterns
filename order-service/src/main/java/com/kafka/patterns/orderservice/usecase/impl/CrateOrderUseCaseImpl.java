@@ -9,6 +9,7 @@ import com.kafka.patterns.orderservice.repo.OrderRepository;
 import com.kafka.patterns.orderservice.usecase.CrateOrderUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -24,11 +25,14 @@ public class CrateOrderUseCaseImpl implements CrateOrderUseCase {
     @Override
     @Transactional
     public OrderEntity execute(String product, int quantity) {
-        OrderEntity savedOrder = orderRepository.save(OrderEntity.builder()
-                .product(product)
-                .quantity(quantity)
-                .status(OrderStatus.CREATED)
-                .build());
+        OrderEntity savedOrder = createOrder(product, quantity);
+        log.info("Order created with id: {}", savedOrder.getId());
+        OutboxEventEntity outboxEventForOrder = createOutboxEventForOrder(savedOrder);
+        log.info("Outbox event created with id: {}", outboxEventForOrder.getId());
+        return savedOrder;
+    }
+
+    private OutboxEventEntity createOutboxEventForOrder(OrderEntity savedOrder) {
         OutboxEventEntity event = OutboxEventEntity.builder()
                 .aggregateId(savedOrder.getId().toString())
                 .aggregateType(OrderEntity.class.getSimpleName())
@@ -37,7 +41,16 @@ public class CrateOrderUseCaseImpl implements CrateOrderUseCase {
                 .published(false)
                 .build();
 
-        outboxRepository.save(event);
-        return savedOrder;
+        return outboxRepository.save(event);
+    }
+
+    @NotNull
+    private OrderEntity createOrder(String product, int quantity) {
+        OrderEntity newOrder = OrderEntity.builder()
+                .product(product)
+                .quantity(quantity)
+                .status(OrderStatus.CREATED)
+                .build();
+        return orderRepository.save(newOrder);
     }
 }
