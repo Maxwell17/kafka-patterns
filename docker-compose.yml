@@ -120,6 +120,15 @@ services:
     volumes:
       - kafka_ui_data:/var/lib/kafkaui
 
+#  orders:
+#    build:
+#      context: ./orders-service
+#      dockerfile: Dockerfile.native
+#    depends_on: [ postgres, kafka, keycloak ]
+#    environment:
+#      SPRING_PROFILES_ACTIVE: local
+#    ports: [ "8081:8080" ]
+
 volumes:
   pgdata:
   kafka_data:

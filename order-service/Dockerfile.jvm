@@ -1,0 +1,4 @@
+FROM eclipse-temurin:24.0.2_12-jdk-ubi10-minimal
+ARG JAR_FILE=target/orders-service.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
