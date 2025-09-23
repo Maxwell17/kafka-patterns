@@ -1,0 +1,11 @@
+# stage 1: build native-image using GraalVM (build machine must have Graal or use graalvmci images)
+FROM ghcr.io/graalvm/native-image-community:24.0.1 as builder
+WORKDIR /workspace
+COPY . /workspace
+RUN mvn -Pnative -DskipTests package
+
+# stage 2: runtime
+FROM busybox:glibc
+COPY --from=builder /workspace/orders-service/target/orders-service .
+EXPOSE 8080
+ENTRYPOINT ["/orders-service"]

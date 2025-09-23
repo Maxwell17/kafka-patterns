@@ -7,7 +7,7 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 
 @EnableScheduling
 @SpringBootApplication
-@ComponentScan({"com.kafka.patterns"})
+@ComponentScan("com.kafka.patterns")
 public class OrderServiceApplication {
 
     public static void main(String[] args) {
