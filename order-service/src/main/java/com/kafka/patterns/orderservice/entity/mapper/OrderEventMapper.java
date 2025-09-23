@@ -1,15 +1,46 @@
 package com.kafka.patterns.orderservice.entity.mapper;
 
-import com.kafka.patterns.orderservice.entity.domain.OrderEntity;
-import com.kafka.patterns.orderservice.entity.domain.OutboxEventEntity;
+import com.google.protobuf.Timestamp;
+import com.kafka.patterns.common.dto.OrderDTO;
 import com.kafka.patterns.proto.OutboxOrderEvent;
-import org.mapstruct.Mapper;
+import org.mapstruct.*;
 
-@Mapper(componentModel = "spring")
+import java.time.Instant;
+
+@Mapper(componentModel = "spring",
+        imports = {com.google.protobuf.Timestamp.class})
 public interface OrderEventMapper {
 
-    OutboxOrderEvent toProto(OrderEntity orderEntity);
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "product", source = "product")
+    @Mapping(target = "quantity", source = "quantity")
+    @Mapping(target = "status", source = "status")
+    @ValueMappings({
+            @ValueMapping(source = "CREATED", target = "CREATED"),
+            @ValueMapping(source = "CANCELLED", target = "CANCELLED"),
+            @ValueMapping(source = "COMPLETED", target = "COMPLETED")
+    })
+    @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToTimestamp")
+    OutboxOrderEvent toProto(OrderDTO orderDTO);
 
-    OrderEntity toDto(OutboxEventEntity event);
+    @Named("instantToTimestamp")
+    default Timestamp instantToTimestamp(Instant instant) {
+        return Timestamp.newBuilder()
+                .setSeconds(instant.getEpochSecond())
+                .setNanos(instant.getNano())
+                .build();
+    }
+
+//    @Mapping(target = "id", source = "payload.id")
+//    @Mapping(target = "product", source = "payload.product")
+//    @Mapping(target = "quantity", source = "payload.quantity")
+//    @Mapping(target = "status", source = "payload.status")
+//    @ValueMappings({
+//            @ValueMapping(source = "CREATED", target = "CREATED"),
+//            @ValueMapping(source = "CANCELLED", target = "CANCELLED"),
+//            @ValueMapping(source = "COMPLETED", target = "COMPLETED")
+//    })
+//    @Mapping(source = "payload.createdAt", target = "createdAt", qualifiedByName = "timestampToInstant")
+//    OrderEntity toDto(OutboxEventEntity event);
 
 }

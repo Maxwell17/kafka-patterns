@@ -11,8 +11,8 @@ public interface OutboxRepository extends JpaRepository<OutboxEventEntity, Long>
 
     List<OutboxEventEntity> findByPublishedIsFalseOrderByCreatedAt();
 
-    default OutboxEventEntity updatePublishedStatus(OutboxEventEntity event, Boolean published) {
-        event.setPublished(published);
+    default OutboxEventEntity updatePublishedStatus(OutboxEventEntity event) {
+        event.setPublished(true);
         return save(event);
     }
 }

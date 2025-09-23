@@ -1,16 +1,16 @@
 package com.kafka.patterns.orderservice.entity.domain;
 
-import com.kafka.patterns.proto.OutboxOrderEvent;
-import com.vladmihalcea.hibernate.type.json.JsonBinaryType;
+import com.kafka.patterns.common.dto.OrderDTO;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.Type;
+import org.hibernate.annotations.JdbcTypeCode;
+import org.hibernate.type.SqlTypes;
 
-import java.time.OffsetDateTime;
+import java.time.Instant;
 
 @Entity
 @Table(name = "outbox_events")
@@ -33,14 +33,14 @@ public class OutboxEventEntity {
     @Column(name = "topic", nullable = false, updatable = false)
     private String topic;
 
-    @Type(JsonBinaryType.class)
+    @JdbcTypeCode(SqlTypes.JSON)
     @Column(columnDefinition = "jsonb", nullable = false, updatable = false)
-    private OutboxOrderEvent payload;
+    private OrderDTO payload;
 
     @Column(name = "published", nullable = false)
     private Boolean published;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
-    private OffsetDateTime createdAt;
+    private Instant createdAt;
 }

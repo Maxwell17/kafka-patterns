@@ -3,5 +3,6 @@ package com.kafka.patterns.common.dto;
 public enum OrderStatus {
     CREATED,
     CANCELLED,
-    COMPLETED
+    COMPLETED,
+    ORDER_STATUS_UNSPECIFIED
 }
