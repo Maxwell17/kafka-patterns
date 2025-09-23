@@ -1,7 +1,7 @@
 package com.kafka.patterns.orderservice.outbox;
 
+import com.kafka.patterns.common.mapper.OrderEventMapper;
 import com.kafka.patterns.orderservice.entity.domain.OutboxEventEntity;
-import com.kafka.patterns.orderservice.entity.mapper.OrderEventMapper;
 import com.kafka.patterns.proto.OutboxOrderEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;

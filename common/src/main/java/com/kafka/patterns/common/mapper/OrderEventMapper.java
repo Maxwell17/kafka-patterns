@@ -1,4 +1,4 @@
-package com.kafka.patterns.orderservice.entity.mapper;
+package com.kafka.patterns.common.mapper;
 
 import com.google.protobuf.Timestamp;
 import com.kafka.patterns.common.dto.OrderDTO;
@@ -18,10 +18,23 @@ public interface OrderEventMapper {
     @ValueMappings({
             @ValueMapping(source = "CREATED", target = "CREATED"),
             @ValueMapping(source = "CANCELLED", target = "CANCELLED"),
-            @ValueMapping(source = "COMPLETED", target = "COMPLETED")
+            @ValueMapping(source = "COMPLETED", target = "COMPLETED"),
     })
     @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "instantToTimestamp")
     OutboxOrderEvent toProto(OrderDTO orderDTO);
+
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "product", source = "product")
+    @Mapping(target = "quantity", source = "quantity")
+    @Mapping(target = "status", source = "status")
+    @ValueMappings({
+            @ValueMapping(source = "CREATED", target = "CREATED"),
+            @ValueMapping(source = "CANCELLED", target = "CANCELLED"),
+            @ValueMapping(source = "COMPLETED", target = "COMPLETED"),
+            @ValueMapping(source = "UNRECOGNIZED", target = MappingConstants.THROW_EXCEPTION)
+    })
+    @Mapping(target = "createdAt", source = "createdAt", qualifiedByName = "timestampToInstant")
+    OrderDTO toDto(OutboxOrderEvent event);
 
     @Named("instantToTimestamp")
     default Timestamp instantToTimestamp(Instant instant) {
@@ -31,16 +44,9 @@ public interface OrderEventMapper {
                 .build();
     }
 
-//    @Mapping(target = "id", source = "payload.id")
-//    @Mapping(target = "product", source = "payload.product")
-//    @Mapping(target = "quantity", source = "payload.quantity")
-//    @Mapping(target = "status", source = "payload.status")
-//    @ValueMappings({
-//            @ValueMapping(source = "CREATED", target = "CREATED"),
-//            @ValueMapping(source = "CANCELLED", target = "CANCELLED"),
-//            @ValueMapping(source = "COMPLETED", target = "COMPLETED")
-//    })
-//    @Mapping(source = "payload.createdAt", target = "createdAt", qualifiedByName = "timestampToInstant")
-//    OrderEntity toDto(OutboxEventEntity event);
+    @Named("timestampToInstant")
+    default Instant timestampToInstant(Timestamp timestamp) {
+        return Instant.ofEpochSecond(timestamp.getSeconds(), timestamp.getNanos());
+    }
 
 }
