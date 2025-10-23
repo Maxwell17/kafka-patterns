@@ -7,6 +7,6 @@ RUN microdnf install maven && \
 
 # stage 2: runtime
 FROM busybox:glibc
-COPY --from=builder /workspace/orders-service/target/orders-service .
+COPY --from=builder /workspace/payments-service/target/payments-service .
 EXPOSE 8080
-ENTRYPOINT ["/orders-service"]
+ENTRYPOINT ["/payments-service"]
